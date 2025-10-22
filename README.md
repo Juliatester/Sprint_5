@@ -11,6 +11,7 @@ Project/
 │   ├── test_login.py
 │   ├── test_logout.py
 ├── .gitignore
+├── config.py
 ├── conftest.py
 └── locators.py
 

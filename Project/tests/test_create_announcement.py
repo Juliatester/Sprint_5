@@ -2,12 +2,13 @@ import pytest
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from locators import Locators
+import config
 
 @pytest.mark.usefixtures("driver")
 class TestAnnoucement:
 
     def test_annoucement_unauthorized_user(self, driver):
-        driver.get("https://qa-desk.stand.praktikum-services.ru")
+        driver.get(config.link)
         driver.find_element(*Locators.create_add_button).click()
 
         WebDriverWait(driver, 10).until(
@@ -17,11 +18,11 @@ class TestAnnoucement:
         assert auth_required_text_element == "Чтобы разместить объявление, авторизуйтесь", "Текст заголовка модального окна не соответствует ожидаемому"    
 
     def test_annoucement_authorized_user(self, driver):
-        driver.get("https://qa-desk.stand.praktikum-services.ru")
+        driver.get(config.link)
 
         driver.find_element(*Locators.login_button).click()
-        driver.find_element(*Locators.email_field).send_keys("juliamur@mail.com")
-        driver.find_element(*Locators.password_input).send_keys("password123")
+        driver.find_element(*Locators.email_field).send_keys(config.login_user["email"])
+        driver.find_element(*Locators.password_input).send_keys(config.login_user["password"])
         driver.find_element(*Locators.main_login_button).click()
 
         WebDriverWait(driver, 10).until(
